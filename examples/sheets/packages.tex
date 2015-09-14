@@ -1,0 +1,44 @@
+% settings for the listings
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamercolor{block}{bg=fontys,fg=white}
+\usepackage{caption}
+\usepackage{pdfpages}
+\usepackage{textcomp}
+\usepackage{csquotes}
+\definecolor{lightgray}{gray}{.95}
+\lstloadlanguages{JAVA} 
+\lstset{language=Java,
+  frame=single, frameround=ffff, 
+  breaklines=true, tabsize=2, keywordstyle=\color{blue},backgroundcolor=\color{lightgray},c ommentstyle=\color{gray}, labelstyle=\tiny, labelstep=5, firstlabel=1, labelsep=5pt}
+\lstset{                       
+        backgroundcolor=\color{lightgray},
+        tabsize=4,
+%       rulecolor=,
+        language=Java,
+        basicstyle=\ttfamily,
+        upquote=true,
+        aboveskip={.5\baselineskip},
+        columns=fixed,
+        showstringspaces=false,
+        extendedchars=true,
+        breaklines=true,
+        prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+        frame=single,
+        showtabs=false,
+        showspaces=false,
+        showstringspaces=false,
+        identifierstyle={\ttfamily\textbf},
+        keywordstyle=\color[rgb]{0,0,.9},
+        commentstyle={\color[rgb]{0.3,0.3,0.3}\ttfamily},
+        stringstyle={\color[rgb]{0.1,0.9,0.1}\ttfamily}
+}
+
+\DeclareCaptionFont{white}{ \color{white} }
+\DeclareCaptionFormat{listing}{
+  \colorbox[cmyk]{0.43, 0.35, 0.35,0.01 }{
+    \parbox{.8\textwidth}{\hspace{10pt}#1#2#3}
+  }
+}
+\captionsetup[lstlisting]{ format=listing, labelfont=white,
+textfont=white, singlelinecheck=false, margin=0pt,
+font={sf,bf,footnotesize} }

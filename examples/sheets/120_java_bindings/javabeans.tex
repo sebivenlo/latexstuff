@@ -1,0 +1,95 @@
+\section[beans?]{What are Java Beans?}
+\begin{frame}{What are \textit{Java Beans}}
+
+  \begin{itemize}
+  \item Alternate meaning: coffee beans of the java sort.
+  \item In the java programming culture: Normal Java Classes that adhere to
+    specific conventions:
+    \begin{itemize}
+    \item Must have public parameter-less (default) constructor. Other
+      constructors are allowed.
+    \item Have \textit{setters} and \textit{getters} for
+      \textit{properties} with naming convention. 
+    \item Can have property change listeners with support for them.
+    \item Must be \textit{serializable}.
+    \end{itemize}
+  \item They often group or \textit{encapsulate} many objects into a
+    single object.
+  \end{itemize}
+\end{frame}
+\subsection[convention]{Naming convention}
+\begin{frame}{Naming convention}
+  All \textit{properties} of the bean should have getters and
+  setters. For member named \Code{someValue} of \Code{SomeType}
+  \begin{description}[get]
+  \item[getter]\Code{getSomeValue}. First letter capitalized and
+    prefixed with \Code{get} for getter: \Code{SomeType~getSomeValue()}
+  \item[setter]\Code{setSomeValue}.  First letter capitalized and
+    prefixed with \Code{set} for getter: \Code{void~getSomeValue(SomeType v)}
+  \item[is] for \textit{getter} of boolean members: \Code{boolean~isSomeBoolean()}
+  \end{description}
+  If these conventions are followed, it is said that the
+  implementation follows the Bean Pattern.
+
+  This naming convention eases understanding, but also allows for
+  automated tools to introspect the classes and objects and help with
+  tools for non programmatic (as in GUI supported) operations on the
+  \enquote{bean}. DEMO in Netbeans % use FaceBean.
+  
+\end{frame}
+
+\subsection{Inspecting bean properties with a GUI}
+\begin{frame}{Bean GUI in NetBeans}
+  DEMO with FaceBean.
+
+  Note that this version is slightly modified from the tutorial's
+  version, using the inherited property change support of \Code{java.awt.Component}.
+\end{frame}
+
+\subsection[binding]{Property Binding}
+\begin{frame}{Binding is like Observer}
+  Binding means that a \textit{PropertyChangeListener} is informed
+  whenever a property changes value.
+  \begin{itemize}
+  \item This is similar to the Observable/Observer pattern we saw
+    earlier.
+
+  \item \Code{PropertyChangeListener}s can be added and removed.
+  \item The listeners are informed about the changes of the property by
+    a call of their
+    \Code{void~propertyChange(PropertyChangeEvent~evt)} method.
+
+  \item When a bean wants to use this mechanism it typically uses a
+    member of type PropertyChangeSupport, which  does the
+    \enquote{Heavy Lifting}. In the FaceBean example \Code{mPcs}.
+ 
+  \item The listeners are triggered by the bean by calling 
+    \Code{mPcs.firePropertyChanged(propname,~oldValue,~newValue);}
+  \end{itemize}
+
+\end{frame}
+
+\subsection[veto]{Suppress or reject changed: Veto}
+\begin{frame}{Vetoable changes}
+  A constrained property gets special treatment.
+  \begin{itemize}
+  \item The beans has veto change listeners.
+    \begin{itemize}
+    \item The listeners get a say if the change is allowed, based on
+      name and old and new value of the property.
+    \end{itemize}
+  \item The FaceBean example uses \Code{VetoableChangeSupport} instance name \Code{mVcs}.
+  \item The way the listener is informed of the immanent change is
+    similar to firePropertyChange call on an earlier slide:
+    \Code{fireVetoableChange(propname,~oldValue,~newValue)}
+  \item However: call this method \alert{before} you change the
+    properties value.
+    \begin{itemize}
+    \item Then when the listener vetoes the change, it will throw an
+      exception, thereby typically preventing the execution of the
+      steps to actually set the property to the vetoed value.
+    \item This exception is \textit{checked}, so you must catch it
+      or forward it with a \Code{throws} in the setter's signature.
+    \end{itemize}
+  \end{itemize}
+\end{frame}

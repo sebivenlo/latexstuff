@@ -1,0 +1,25 @@
+\section[GUI BEANS]{Gui Components as beans}
+\begin{frame}[shrink]{Gui Components as beans}
+  \Code{java.awt.Component} is a JavaBean and support change listening
+  for the properties:
+  \begin{itemize}
+  \item the component's font  ("font'')
+  \item background color ("background")
+  \item foreground color ("foreground")
+  \item focusability ("focusable")
+  \item focus traversal keys enabled state ("focusTraversalKeysEnabled")
+  \item Set of FORWARD\_TRAVERSAL\_KEYS ("forwardFocusTraversalKeys")
+  \item Set of BACKWARD\_TRAVERSAL\_KEYS ("backwardFocusTraversalKeys")
+  \item Set of UP\_CYCLE\_TRAVERSAL\_KEYS ("upCycleFocusTraversalKeys")
+  \item preferred size ("preferredSize")
+  \item minimum size ("minimumSize")
+  \item maximum size ("maximumSize")
+  \item locale ("locale")
+  \item component orientation (left to right or right to left)
+    ("componentOrientation")
+   \end{itemize}
+   And you can add your own property too. 
+
+\end{frame}
+
+

@@ -1,0 +1,43 @@
+\providecommand\beameraspectratio{43}
+\providecommand\OffLine[1]{#1}
+\newwrite\pdfpcfile
+\immediate\openout\pdfpcfile=\jobname.pdfpc
+\immediate\write\pdfpcfile{[file]}
+\immediate\write\pdfpcfile{\jobname.pdf}
+\immediate\write\pdfpcfile{[notes]}
+\providecommand\slidenote[1]{
+  \immediate\write\pdfpcfile{#### \theframenumber}
+  \immediate\write\pdfpcfile{#1}
+}
+\typeout{###############   \jobname}
+\providecommand\transOrBeamer{beamer}
+\documentclass[\transOrBeamer,aspectratio=\beameraspectratio]{beamer}
+\providecommand\DocumentLanguage{EN}
+\usepackage{ifthen}
+% some sheets have the Polish l.
+\usepackage[polish,german,dutch,english]{babel}
+\ifthenelse{\equal{\DocumentLanguage}{DE}}{%
+  \providecommand\DE[1]{#1}\selectlanguage{german}%
+}{%
+}
+\ifthenelse{\equal{\DocumentLanguage}{EN}}{%
+  \providecommand\EN[1]{#1}\selectlanguage{english}%
+}{%
+}
+\ifthenelse{\equal{\DocumentLanguage}{NL}}{%
+  \providecommand\NL[1]{#1}\selectlanguage{dutch}%
+}{%
+}
+%% pick presets from project dirs
+\InputIfFileExists{../sheetbase}{\typeout{=== found sheetbase in
+    parent dir}}{\typeout{=== No defs found in parent dir}}
+\input{fontysstyle/stylesheet/sheetstyle}
+
+\InputIfFileExists{../author}{}{\author[HOM]{Pieter~van~den~Hombergh}}
+
+\InputIfFileExists{title.tex}{}{\title{Untitled Sheets}}
+
+\begin{document}
+\InputIfFileExists{../mededeling.tex}{}{}
+\input{material}
+\end{document}

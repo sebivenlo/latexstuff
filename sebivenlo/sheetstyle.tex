@@ -1,0 +1,102 @@
+%üä
+%% I18n we have international sheets which rely on these macros
+\providecommand\NL[1]{}
+\providecommand\EN[1]{}
+\providecommand\DE[1]{}
+%% end I18n
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage[utf8]{inputenc}
+\usepackage{pifont}
+\usepackage{tikz}
+\usepackage{etex}
+
+\usepackage{lmodern}
+\usepackage[normalem]{ulem}
+\usepackage{multicol}
+\usepackage{eurosym}
+%\usepackage[dvipsnames,usenames]{color}
+\usepackage{colortbl,tabu}
+\usepackage{xcolor}
+
+
+%\usepackage{upquote}
+
+\providecolor{darkgreen}{rgb}{0,0.4,0}
+\providecolor{darkblue}{rgb}{0,0,0.8}
+\setbeamercolor{postit}{fg=black,bg=yellow}
+\providecolor{seablue}{rgb}{0,0.5,0.9}
+\providecolor{fontys}{rgb}{.5,0,.5}
+
+\providecommand\keyword[1]{{\color{darkblue}\ttfamily\bfseries#1}}
+%\providecommand\weektitle{Concurrency with Java}
+\providecommand\Okis[1]{{\color{darkgreen}\bfseries#1}}
+\lstset{keywordstyle={\color{blue}\bfseries},%
+         morendkeywords={param,exception,return},
+         basicstyle={\ttfamily},
+         language=Java,numberstyle=\tiny,commentstyle=\color{darkgreen}}
+%\usepackage{beamerthemesplit}
+\definecolor{fontys}{rgb}{.5,0,.5}
+\providecommand\themecolor{fontys}
+\providecommand\beamertheme{Goettingen}
+\usetheme{\beamertheme}
+% \providecommand\beameroutertheme{infolines}
+% \useoutertheme{\beameroutertheme}
+\providecommand\beamercolortheme{default}
+\usecolortheme{\beamercolortheme}
+\providecommand\themecolor{darkgreen}
+\providecommand\Hilite[1]{{\color{fontys}\bfseries#1}}
+%\setbeamercolor*{structure}{fg=\themecolor,bg=black!50!\themecolor}
+\usecolortheme[named=\themecolor]{structure}
+\lstset{stringstyle={\color{fontys}}}
+\input{sheeticons}
+\def\Red#1{{\color{red}\textbf{#1}}}
+\def\Blue#1{{\color{darkblue}\textbf{#1}}}
+\institute[FHTenL]{Fontys~Hogeschool~voor~Techniek~en~Logistiek}
+\author[FvO,\\PvdH]{Ferd~van~Odenhoven\\Pieter~van~den~Hombergh}
+\date{\today}
+\logo{\includegraphics[height=20pt]{fontys-logo}}
+
+%% {\setbeamertemplate{background canvas}{\includegraphics
+%% 	[keepaspectratio,width=\paperwidth,height=\paperheight
+%% ]{../figures/KoiFishinthePond.jpg}}}
+
+\makeatletter
+\newcommand{\fontys@footline}{%
+  \insertshortauthor/\insertshortinstitute
+  \hfill
+  \insertshorttitle
+  \ifx\insertsubtitle\@empty\else, \insertshortsubtitle\fi
+  \hfill
+  \today
+  \hfill
+  \insertframenumber/\inserttotalframenumber}
+\setbeamercolor{fontys@ftcolor}{parent=palette secondary}
+
+\setbeamertemplate{footline}{%
+  \usebeamerfont{structure}
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex]{fontys@ftcolor}%
+    \Tiny\hspace*{4mm}\fontys@footline\hspace{4mm}
+  \end{beamercolorbox}}
+\newcommand{\setfootline}[1]{\renewcommand{\fontys@footline}{#1}}
+\makeatother
+\def\makebeamertoc{%
+  \section*{Contents of this talk.}
+  \begin{frame}{Contents of this talk}
+    \begin{multicols}{2}          
+      \tableofcontents            
+    \end{multicols}
+  \end{frame}%
+}
+
+\InputIfFileExists{../packages}{}{}
+\InputIfFileExists{../macros}{}{}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{enumerate items}[ball]
+\setbeamertemplate{itemize items}[ball]
+
+%%% Local Variables: 
+%%% mode: plain-tex
+%%% TeX-master: t
+%%% End: 

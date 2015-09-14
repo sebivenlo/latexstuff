@@ -1,0 +1,39 @@
+
+%% Authors and revisions are important meta data for a project
+
+%% Define a table with three columns:  Author name, acronym and email
+\newenvironment{AuthorTable}{
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lp{2cm}ll}
+      \hline
+      \textbf{Name}		& \textbf{Acronym} &\textbf{E-Mail}\\\hline}{
+    \end{tabular*}
+} % end AuthorTable
+%      van Heesch, Uwe & uvh	& uwe@vanheesch.net \\
+% \AuthorRecord{name}{acronym}{email address}
+\newcommand\AuthorRecord[3]{%
+  #1 & #2 & #3\\
+}%
+
+%% Define an table with document history. Put the most recent version
+%% on top.
+%% Table has three columns: 
+%% * Version number, which should be advanced in a standard way.
+%% * Author abbreviation(s) responsible
+%% * Date of change
+%% * Description (reason) of change
+
+\newenvironment{RevisionTable}{
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lllp{120mm}}
+      \hline
+      \textbf{Version} & \textbf{Author} & \textbf{Date} & \textbf{Description} \\\hline}{%
+      \hline
+    \end{tabular*}\\
+    {\small Legend: r = reviewed\hrule}
+}% end env \RevisionTable
+
+% \RevisionRecord{version}{acronym}{date}{description}
+% 
+\newcommand\RevisionRecord[4]{%
+  #1 & #2 & #3 &#4  \\
+}% end \RevisionRecord
+

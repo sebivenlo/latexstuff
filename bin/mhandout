@@ -1,0 +1,37 @@
+#!/bin/bash
+lang=en
+export LATEX=pdflatex
+
+# sanity check
+if [ ! -e material.tex ] ; then
+    echo "The current dir is not a sheet work dir"
+    exit 1
+fi
+
+# ensure out dir
+mkdir -p out
+if [ $# -gt 0 ] ; then
+    lang=$1
+    echo lang = $lang 
+    shift
+fi
+
+${LATEX} -shell-escape -jobname=handoutsheets_${lang} -output-directory out handoutsheets_${lang}
+${LATEX} -shell-escape -jobname=handoutsheets_${lang} -output-directory out handoutsheets_${lang}
+${LATEX} -jobname=handout_${lang} -output-directory out handout_${lang}
+${LATEX} -jobname=handout_${lang} -output-directory out handout_${lang}
+
+# more langs?
+while [ $# -gt 0 ]; do
+    lang=$1
+    echo lang = $lang 
+    shift
+    ${LATEX} -shell-escape -jobname=handoutsheets_${lang} -output-directory out handoutsheets_${lang}
+    ${LATEX} -shell-escape -jobname=handoutsheets_${lang} -output-directory out handoutsheets_${lang}
+    ${LATEX} -jobname=handout_${lang} -output-directory out handout_${lang}
+    ${LATEX} -jobname=handout_${lang} -output-directory out handout_${lang}
+done
+
+for i in out/handout_??.pdf; do 
+    mv ${i} $(basename $(pwd))_$(basename ${i})
+done

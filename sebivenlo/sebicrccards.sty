@@ -1,0 +1,54 @@
+%\RequirePackage{tabularx,colortbl,xparse,mdwlist}
+%\RequirePackage{fancybox}
+\RequirePackage{float}
+\RequirePackage{etoolbox}
+\RequirePackage{ifmtarg}
+%% next command has 5 parameters: the title, the ref, the description,
+%% the responsibility and the collaborators.
+\providecommand{\providelength}[2]{%
+\ifdeflength{#1}{% It is already defined!
+}{% Not defined, so define it!
+\newlength{#1}%
+}%
+\setlength{#1}{#2}%
+}%
+\floatstyle{plaintop}
+\newfloat{crccard}{H}{crc}[section]
+\floatname{crccard}{CRC-card}
+\providelength{\crcboxiwidth}{100mm}
+\providelength{\crcboxiiwidth}{50mm}
+\providelength{\crcboxiiiwidth}{145mm}
+%CRC macro 
+\newcommand\CRC[5]{
+  \shadowbox{
+    \begin{tabular}{|p{\crcboxiwidth}|p{\crcboxiiwidth}|}%\hline
+      \multicolumn{2}{c}{\large\textbf{\textsf{#1}}}\\[2.5\baselineskip]\hline
+      \multicolumn{2}{|p{\crcboxiiiwidth}|}{#3} \\\hline
+      \textbf{\textsf{Responsibility}} & \textbf{\textsf{Collaborators}}\\\hline
+      \noindent\parbox[t]{\hsize}{%
+        \begin{minipage}{\hsize}
+          \vspace{.1\baselineskip}%
+          #4
+        \end{minipage}
+        \vspace{.2\baselineskip}%
+      } &%
+      \noindent\parbox[t]{\hsize}{%
+        \begin{minipage}{\hsize}
+          \vspace{.1\baselineskip}\sffamily%
+          #5
+        \end{minipage}
+        \vspace{.2\baselineskip}%
+      }%
+      \\ \hline
+    \end{tabular}%
+    % use a label for referencing
+    \label{crc:#2}%
+  } % ends shadowbox
+} % end CRC
+
+% Use as:
+% \CRC{Bidirectional motor}{bid-motor}{The bidirectional motor finds itself in the
+%   elevator to make sure it can go to the right directions}
+% {The bidirectional motor has to make sure the elevator can go in both
+% directions, up and down}{  Buttons \\
+%    Elevator\\Whatever}

@@ -1,0 +1,41 @@
+\input{mineonly}
+\MineOnlyStart
+% example use case or scenario.
+\begin{UseCase}{UC-1.1}{Member lands books from the library}{library}{1.0}{ODE}
+\Actors{Member of library}
+\Description{Make a lending}
+\Preconditions{Membership card is valid, card and books have been placed on the scanning device.}
+\Scenario{%
+  \vspace{0.4\baselineskip}
+    \begin{enumerate*}
+    \item System scans card.
+    \item System asks to make a choice: lend or return books.
+    \item Member selects: `make lending'.
+    \item System scans books and presents a list and asks for confirmation that the list is correct.
+    \item Member acknowledges that the list is correct.
+    \item System reports that the lending has been made, and reports the due date for the items.
+    \item System asks if user would like to have a ticket printed.
+    \item Member selects `yes'.
+    \item System prints a ticket and closes the session.
+    \end{enumerate*}
+  }
+\Extensions{%
+  \vspace{0.4\baselineskip}
+  \begin{description*}
+  \item [6.1] System reports that member has too many books in his/her possession.
+    \begin{enumerate*}
+      \item System displays: Please remove some items.
+      \item Member removes items
+      \item System presents list and use case proceeds at step 5.
+    \end{enumerate*}
+  \end{description*}
+}
+\Exceptions{%
+  \vspace{0.1\baselineskip}
+  \begin{description*}
+  \item [5.1] List is not correct. Use case ends here.
+  \end{description*}
+}
+\Result{Books successfully lent out.}
+\end{UseCase}
+\MineOnlyEnd

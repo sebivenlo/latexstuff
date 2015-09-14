@@ -1,0 +1,39 @@
+#!/bin/bash
+lang=en
+export LATEX=pdflatex
+pkind=$(basename $0)
+pkind=${pkind:1}
+
+# sanity check
+if [ ! -e material.tex ] ; then
+    echo "The current dir is not a sheet work dir"
+    exit 1
+fi
+mkdir -p out
+basename=$(basename $(pwd))
+if [ $# -gt 0 ] ; then
+    lang=$1
+    echo lang = $lang 
+    shift
+fi
+
+${LATEX} -shell-escape -jobname=${basename}_${pkind}_${lang} -output-directory out ${TEX_OPTIONS} ${pkind}_${lang}
+${LATEX} -shell-escape -jobname=${basename}_${pkind}_${lang} -output-directory out ${TEX_OPTIONS} ${pkind}_${lang}
+#${LATEX} sheets_${lang}
+
+# more langs?
+while [ $# -gt 0 ]; do
+    lang=$1
+    echo lang = $lang 
+    shift
+    ${LATEX} -shell-escape -jobname=${basename}_${pkind}_${lang} -output-directory out ${TEX_OPTIONS} ${pkind}_${lang}
+    ${LATEX} -shell-escape -jobname=${basename}_${pkind}_${lang} -output-directory out ${TEX_OPTIONS} ${pkind}_${lang}
+done
+
+for i in out/${basename}_${pkind}*_??.pdf; do 
+    mv ${i} .
+done
+
+for i in out/${basename}_${pkind}*_??.pdfpc; do 
+    cat ${i} | sed -e's/####/###/' > $(basename $i)
+done

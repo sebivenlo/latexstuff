@@ -1,0 +1,130 @@
+\section[FX Properties]{JavaFX Properties and Binding}
+\begin{frame}{FX Beans vs Java Beans}
+  \begin{itemize}
+  \item more direct binding/ relationship of and between variables.
+    \begin{itemize}
+    \item The work around triggering and binding does no longer take
+      place in containing class.
+    \item because the properties are ``exposed'', so can manipulated from the outside.
+    \end{itemize}
+
+  \item new (extra) convention for getter of property. \Code{xXXXProperty()}
+    where xXXX is the name of the property.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Meet Bill}
+\lstset{basicstyle={\scriptsize},upquote=true,language=Java}
+  \lstinputlisting[firstline=6,title={Simple bill example}]{../code/fxbindingdemo/src/demo1/Bill.java}
+\end{frame}
+
+\begin{frame}{Improvements}
+  \begin{itemize}
+  \item JavaFX properties expands and improves the JavaBeans model.
+  \item \Okis{Binding} is assembled from one or more sources, the
+    \textit{dependencies}.
+  \item A binding observes its dependencies for changes and updates itself
+    after change detection, but lazily.
+  \item Lazy means, that the value is recomputed on demand (when getter
+    is called) in stead of every time it is set.
+  \item The documentation also states that the implementer should
+    minimize the work in event handlers: \textit{\enquote{Implementations of this class should strive to generate as few events as possible to avoid wasting too much time in event handlers.}}
+  \item So:
+    \begin{itemize}
+    \item if the new value is the same as the previous: do not
+      bother.
+  \item If you are already invalid, do not propagate this news any further.
+  \end{itemize}
+  
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Property APIs}
+  JavaFX beans provide three way to deal with bound properties:
+  \begin{itemize}
+  \item High level API.
+    \begin{itemize}
+    \item Fluent API
+    \item Bindings utility class.
+    \end{itemize}
+  \item Low level API.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{High level API, Fluent}
+  Make use of the (computational) method in the property:
+  \Code{NumberProperty} and its children.
+
+  \lstinputlisting[basicstyle={\tiny},firstline=9,lastline=17,title={Fluent
+  API}]{../code/fxbindingdemo/src/demo1/FluentDemo.java}
+
+Note the use of \textit{chaining} the method calls. It is because
+the \Code{add} etc. methods return an object which support the
+operation.
+
+This is called a \textit{fluent} style of programming.
+
+\end{frame}
+
+\begin{frame}{High level API, Bindings class}
+
+  The same computation can be done using the \Code{Bindings} class
+  which provides \textit{factories} for all kinds of binding.
+
+  \lstinputlisting[basicstyle={\tiny},firstline=10,lastline=19,title={Using
+  Bindings},morekeywords={add,multiply}]{../code/fxbindingdemo/src/demo1/UsingBindings.java}
+
+The \Code{add} and \Code{multiply} methods stem from the Bindings class.
+
+  \lstinputlisting[basicstyle={\tiny},firstline=3,lastline=3,title={The import statement}]{../code/fxbindingdemo/src/demo1/UsingBindings.java}
+
+modified from javafx bindings tutorial.
+\end{frame}
+
+\begin{frame}%{Fluent API and Bindings combined}
+
+  \lstinputlisting[basicstyle={\tiny},firstline=10,lastline=20
+  ,title={Combining Fluent API and Bindings}]%
+  {../code/fxbindingdemo/src/demo1/Combining.java}
+  \begin{itemize}
+  \item Convenient to transform a formula to binding.
+  \item When mixing types (e.g. int, double), conversion (promotion)
+    can take place. The rules are the same as in Java.
+  \end{itemize}
+  {\scriptsize
+    \begin{enumerate}
+    \item If one of the operands is a double, the result is a double.
+    \item If not and one of the operands is a float, the result is a float.
+    \item If not and one of the operands is a long, the result is a long.
+    \item The result is an integer otherwise.
+    \end{enumerate}
+    from javafx bindings tutorial.
+  }
+\end{frame}
+
+\begin{frame}{Lazy evaluation}
+
+  \lstinputlisting[basicstyle={\tiny},firstline=14,lastline=33
+  ,title={Lazy evaluation in action}]%
+  {../code/fxbindingdemo/src/demo1/UsingInvalidation.java}
+
+
+  The title is probably an oxymoron.
+\end{frame}
+
+\begin{frame}
+  \lstinputlisting[basicstyle={\tiny},firstline=11,lastline=30
+  ,title={Low Level API}]%
+  {../code/fxbindingdemo/src/demo1/UsingLowLevelApi.java}
+
+{\scriptsize
+  \begin{itemize}
+  \item The low level API can give more control and performance (
+    avoids intermediate objects)  in return for a little more work
+  \item Note the use of the block, which effectively is the sole constructor.
+  \item \Code{super} of DoubleBinding takes care of invalidation behavior. 
+  \end{itemize}
+}
+
+
+\end{frame}

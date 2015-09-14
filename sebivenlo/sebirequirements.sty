@@ -1,0 +1,172 @@
+%\RequirePackage[svgnames,rgb,usenames]{xcolor}
+\RequirePackage{tabularx,colortbl,xparse,mdwlist}
+\renewcommand{\arraystretch}{1.2}
+%\setlength\extrarowheight{5pt}
+\newcommand\reqaspect@row[2]{%
+  \multicolumn{1}{|p{25mm}}{\cellcolor[gray]{.8}#1}&%
+  \multicolumn{3}{|p{125mm}|}{#2}%
+}
+
+\newcommand\reqaspect@multi@row[2]{%
+  \multicolumn{1}{|p{25mm}}{%
+    \cellcolor[gray]{.8}%
+    \begin{minipage}[c]{123mm}%
+      \vspace{.1\baselineskip}%
+      #1%
+    \end{minipage}
+  }&%
+  \multicolumn{3}{|p{125mm}|}{%
+    \begin{minipage}[c]{123mm}%
+     \vspace{.1\baselineskip}%
+      #2
+    \end{minipage}%
+    }
+}
+
+\newcommand{\reqaspect@head@}[4]{\sffamily
+\noindent\begin{tabular}{|l|l|l|p{100mm}|}\hline%
+    % \cellcolor[gray]{.8}#1  &  #2 & \cellcolor[gray]{.8}Name &
+    % \rule{0pt}{3ex}\large\bfseries#3\\\hline%
+    \reqaspect@row{\cellcolor[gray]{.8}\large\bfseries#1}{\rule{0pt}{3ex}\large\bfseries#3}\\\hline
+    \reqaspect@row{Code}{#2}\\\hline
+    \reqaspect@row{Package}{#4}
+}
+
+\newcommand{\reqaspect@foot@}[2]{
+   \cellcolor[gray]{.8}Version & #1 & \cellcolor[gray]{.8}Author& #2\\\hline%
+   \end{tabular}
+}
+
+\newcommand{\Scenario}[1]{%
+  \reqaspect@multi@row{Scenario}{#1}\\\hline
+}
+\newcommand{\Description}[1]{%
+  \reqaspect@multi@row{Description}{#1}\\\hline%
+}
+\newcommand{\Actors}[1]{%
+  \reqaspect@multi@row{Actors}{#1}\\\hline%
+}
+
+\newcommand{\Extensions}[1]{%
+  \reqaspect@multi@row{Extensions}{#1}\\\hline%
+}
+
+\newcommand{\Exceptions}[1]{%
+  \reqaspect@multi@row{Exceptions}{#1}\\\hline%
+}
+
+\newcommand{\Preconditions}[1]{%
+  \reqaspect@multi@row{Precondition(s)}{#1}\\\hline%
+}
+\newcommand{\Result}[1]{%
+  \reqaspect@row{Result}{#1}\\\hline%
+}
+\newcommand{\RefinedBy}[1]{%
+  \reqaspect@row{Refined by}{#1}\\\hline%
+}
+\newcommand{\Story}[1]{%
+  \reqaspect@multi@row{Story}{#1}\\\hline%
+}
+
+\newcommand{\File}[1]{%
+  \reqaspect@row{File}{\ttfamily\textbf{#1}.tex}\\\hline%
+}
+
+\newenvironment{Attributes}{%
+ \textit{\rule[-.3\baselineskip]{0pt}{\baselineskip}Attributes}\newline
+
+ \vspace{-1.5\baselineskip}
+  \begin{itemize*}}{%
+  \end{itemize*}\hrule
+}
+\newenvironment{Actions}{%
+ \textit{\rule[-.3\baselineskip]{0pt}{\baselineskip}Actions}\newline
+
+ \vspace{-1.5\baselineskip}
+ \noindent\setlength{\parskip}{0pt}
+  \begin{itemize*}}{%
+  \end{itemize*}\hrule
+}
+
+\newcommand{\reqaspect@foot@f}[3]{
+  \multicolumn{1}{p{25mm}}{\cellcolor[gray]{.8}File}&%
+  \multicolumn{3}{|p{125mm}|}{#1}\\\hline%
+  \cellcolor[gray]{.8}Version & #2 & \cellcolor[gray]{.8}Author& #3\\\hline%
+  \cellcolor[gray]{.8}Version & #2 & \cellcolor[gray]{.8}Author& #3\\\hline%
+\end{tabular}
+}
+
+\NewDocumentEnvironment{reqaspect}{m m m m m m}{%
+  \reqaspect@head@{#1}{#2}{#3}{#4}\\\hline
+  }{%
+  \reqaspect@foot@{#5}{#6}%\\\hline%
+}
+
+\NewDocumentEnvironment{reqaspectf}{m m m m m m m}{%
+  \reqaspect@head@{#1}{#3}{#4}{#5}\\\hline
+  }{%
+  \reqaspect@foot@f{#2}{#6}{#7}%\\\hline%
+}
+
+\providecommand\AspectFileName{undefined}
+
+%% Code, Name, package, version, author
+\NewDocumentEnvironment{UseCase}{m m m m m}{%
+\begin{reqaspect}{Use Case}{#1}{#2}{#3}{#4}{#5}%
+  \File{\AspectFileName}%
+  }{%
+  \end{reqaspect}%
+}
+
+\NewDocumentEnvironment{UserStory}{m m m m m}{%
+\begin{reqaspect}{User Story}{#1}{#2}{#3}{#4}{#5}
+  \File{\AspectFileName}%
+  }{%
+  \end{reqaspect}%
+  \hfill\vspace{1em}
+}
+
+\NewDocumentEnvironment{ConcreteScenario}{m m m m m}{%
+\begin{reqaspect}{Concrete Scenario}{#1}{#2}{#3}{#4}{#5}
+  \File{\AspectFileName}%
+  }{%
+  \end{reqaspect}%
+  \hfill\vspace{1em}
+}
+
+\def\AspectCaption{Please define a caption}
+
+%% loads file if available otherwise balks.
+%% sets filename and caption values to be picked up by following processing.
+\newcommand{\InputAspect}[2]{%
+  \IfFileExists{#1.tex}{\renewcommand{\AspectFileName}{#1}\renewcommand{\AspectCaption}{#2}\noindent\input{#1}}{%
+    %% Warn on console and put in document too.
+    \typeout{WARNING: Aspect file #1 with caption #2 does not exists
+      (yet)}%
+    \hfill\\\noindent\shadowbox{\begin{minipage}{.8\textwidth}Aspect file \textbf{\ttfamily``#1''} with caption ``\textbf{#2}'' does not exists
+        (yet).%
+      \end{minipage}%
+    }
+  }%
+  \hfill\\\vspace{1\baselineskip}
+}% end \AspectInput
+
+\def\MetaData{
+  \IfFileExists{authors.tex}{
+    \section*{Authors}
+    \input{authors.tex}
+  }{\typeout{WARNING: Cannot  find authors.tex metadata file.}}
+  \IfFileExists{history.tex}{
+    \section*{Revision History}
+    \input{history.tex}
+  }{\typeout{WARNING: Cannot  find history.tex metadata file.}}
+}
+
+\newenvironment{DDE}[1]{
+\setlength{\parskip}{0pt}
+  \begin{minipage}{.5\textwidth}
+    \textbf{#1}\hfill\hrule%
+%    \vspace{.2\baselineskip}%
+  }{%
+  \end{minipage}%
+}
