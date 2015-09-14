@@ -1,0 +1,214 @@
+\renewcommand\TheFile{requirements.tex}
+\SVN $Author: hom $
+\SVN $Revision: 12 $
+\SVN $Id: requirements.tex 12 2012-11-28 10:01:49Z hom $
+\SVN $Date: 2012-11-28 11:01:49 +0100 (Wed, 28 Nov 2012) $
+\SVN $State: Exp $
+\begin{savequote}[8cm]
+  \sffamily
+  The risk is in the people. Or for the people.
+  \qauthor{Anonymous}
+\end{savequote}
+
+\chapter{Requirements of an elevator system}
+\section{Functional requirements}
+\parpic(60mm,45mm)[rs]{\includegraphics[width=60mm]{figures/nurse_jackie_gal2_pr01_elevator.jpg}}This chapter describes some general requirements of an elevator
+system.
+ 
+The purpose of and elevator system is to transport goods or people in
+an efficient and safe way between floors in a building. The system
+may never cause any harm to its passengers or cargo.
+
+An efficient system tries to minimise waiting time for the passengers,
+either waiting for an elevator-cage to arrive at the floor she wants
+to leave or waiting for the elevator-cage she is in to arrive at the 
+desired floor.
+
+The cages and cage shafts are grouped into shaft groups. The purpose of
+the shaft groups is to coordinate the cage movement to improve the
+provided transport service.
+
+\subsection{Safety requirements}
+
+The following requirements describe the safety regulations for the
+system.
+The order in the list is also the order of priority, highest priority first.
+\begin{Enumerate}
+\item The elevator system may never move the cage with open doors. The
+  elevator door is considered open as long as the \textbf{door close 
+  sensor} (or report) is not active.
+\item The elevator system must (re)open its doors if the \textbf{obstruct
+  sensor} is activated, unless the door is fully closed.
+\item The elevator system must have an \textbf{alarm button} inside
+  the cage that forwards an
+  alarm signal to a service post that is always able to accept this
+  call during the service hours of the elevator system. The response
+  time must be less than .. minutes. Outside service hours the
+  response time be less then  .. minutes.
+\item The startup sequence must always result in a safe situation.
+\item The shutdown sequence must always go through safe situations.
+
+\end{Enumerate}
+
+\subsection{Startup}
+On startup the cage should move downward with its door(s) closed until
+the lowest floor sensor is activated. Once the cage arrives at the
+lowest floor, all requests are cancelled and the doors are opened. The
+doors stay open as long as there are no up or down or target
+requests. The startup sequence should obey the safety rules.
+
+
+\subsection{Operation}
+Normal operation of a cage starts at the lowest floor with the doors
+open. The strategy to determine the movement  of the cages in a
+multiple cage system should be such that the strategy optimises a
+specific property of the system. This movement strategy should be
+implemented in such a way that it is replaceable (Strategy Pattern). 
+
+If there are no target requests for the cage nor up or down requests
+from the system, we say that the cage is in the idle state.
+
+
+The following section describes some strategies. This list is not exhaustive.
+
+\subsubsection{Single cage strategies}
+In any elevator system, the system services the requests in the order
+a cage arrives at floors. There are two major modes:
+
+\begin{Description}
+
+\item[Full Pater Noster] Always make a complete circular movement
+  between lowest and highest floor. That is: reverse direction of the
+  elevator only at the top or bottom floor. The movement stops if
+  there are no more requests in the forward circular direction. On
+  arrival of request the movement is resumed in the same direction.
+\item[Skipping Pater Noster] The direction may be reversed as soon as
+  there are no more requests in the current direction. This avoids
+  going to the extreme floors if there are no request from or to those
+  floors. If there are no more requests or targets to visit, the cage
+  can stay at the floor it is visiting.
+
+  Example: The top floor as far as the elevator is consider is
+  the roof of the building, which is seldom visited in daily use. The
+  same goes for a cellar, which is floor zero as far as the elevator
+  is considered. The normal entry to the building would then be on
+  floor number 1.
+\end{Description}
+
+Skipping Pater Noster is the most used mode.
+
+\subsubsection{Multiple cage strategies}
+\begin{Description}
+\item[Nurse mode] Think of a hospital. When a cage is put in nurse
+  mode, that cage only obeys its target buttons. It should not service
+  up and down request of floors. This mode can be turned on and off by
+  means of a (key) lockable button inside the cage.
+\item[Shortest travel time] This strategy tries to shorten the average travel
+  and waiting time for all cages.
+\item[Eager cage] In case of eager cage, the cage tries to pick up
+  passengers as soon as possible.
+\end{Description}
+
+
+When implementing \textit{Shortest travel time} or \textit{Eager cage}
+a \textbf{cost model} may be appropriate. A cost model computes some
+virtual cost of an operation and tries to minimise that cost. In this
+model the cost can be the respective times. Ingredients in the cost
+model are travelling time between floors and estimated visit duration
+on the floors to visit and of course the distance or number of floors
+to travel.
+
+\subsection{Shutdown}
+On shutdown of a cage, all requests for that cage are cancelled and
+the cage should \textit{stay at} the current floor or \textit{move to}
+the nearest floor in the downward direction. 
+On arrival on that floor the cage should open its door. After a 
+transfer timeout the doors should be closed. During the shutdown state
+of the entire system, the button lights should not react to up or down
+requests. During the shut down state pressing any target button inside the
+cage should trigger an alarm and reopen and then (after timeout) close
+the doors.
+
+\section{Non functional requirements}
+For maintainability, and quality the following non functional
+requirements have to be met:
+\begin{Description}
+  
+\item[Package naming] All package names should start with the prefix
+  \texttt{nl.fontys.sevenlo.prj32}
+\item[Testing] All non graphical classes should be unit tested. Unit tests for
+  all those classes are part of the artifacts in the repository.
+\item[External lib storage] External libraries should be build in
+  separate projects or be retrieved from their sources. Their source
+  files should not be mixed with the application packages and
+  files. Versions of used external jar files may be put into the
+  repository although we recommend against this practice. 
+\item[Graphical and sound resources] should be placed in the sources directory
+  in a subdirectory named \texttt{resources}.
+\item[Coding style] Use the java coding style as introduced in
+  PRO2 (Java, semester 2). The style will be used on svn commit on all
+  Java code using checkstyle\footnote{Version 5.5, use the appropriate
+    netbeans checkstyle plugin} with the \texttt{fthv\_checks.xml}
+  configuration file. The svn repository is configured to only accept
+  java files that conform this coding convention.
+  You can find this checkstyle configuration file in the trunk  of the
+  the project svnroot \url{https://www.fontysvenlo.org/svn/2011/prj32m1/svnroot/trunk}. To check you style conformance beforehand you
+  can install the checkstyle plug-in in netbeans, which flags all non
+  conformance in the editor. 
+\item[Code documentation] All classes and interfaces in the
+  \texttt{src}-tree should be documented using javadoc. All members
+  that have external visibility  (non private or have a getter) and
+  all non private methods should have correct and complete javadoc
+  documentation. For your package info files use the modern variant
+  \texttt{package-info.java} in the packages. See the java doc
+  documentation on how to write your javadoc. Note that javadoc
+  conformance is also part of the coding convention.
+\item[Settings and properties] To show various features of your
+  product, use settings on the command line \texttt{-D}-option or
+  property files liberally.
+\item[Reporting] Write your documentation for the intended
+  audience. Assume that the audience is knowledgeable in Java, UML and
+  Patterns on your own level. Write concise (short) texts, to save your and
+  my time. Keep it intelligible though. Add small diagrams to
+  illustrate your story. Use Pattern names in your narrative, naming
+  the participating classes with their role in the applied pattern.
+  Use detailed diagrams only in the appendix. Maybe you could use this
+  report (in \LaTeX\ format) as an example. You can find it's sources
+  in the project repository.
+\end{Description}
+
+Example of the javadoc can be seen in code snippets \ref{snip:docclass}
+and \ref{snip:docmethod}.
+
+\lstset{basicstyle={\scriptsize},language=java,frame=shadowbox,rulesepcolor=\color{fontys}}
+
+\newcommand\sourceroot{../sevenlowarrior/}
+
+\lstinputlisting[firstline=7, lastline=20,framexleftmargin=8mm,%
+caption={[Java doc for class]{Class javadoc
+  example. From \texttt{.../IOWarriorConnector.java}}\label{snip:docclass}}]%
+{\sourceroot/src/nl/fontys/sevenlo/iowarrior/IOWarriorConnector.java}
+
+\lstinputlisting[firstline=92, lastline=106,framexleftmargin=8mm,%
+caption={[Java doc for method]{Method javadoc
+  example. From \texttt{.../IOWarriorConnector.java}}\label{snip:docmethod}}]%
+{\sourceroot/src/nl/fontys/sevenlo/iowarrior/IOWarriorConnector.java}
+
+\lstset{basicstyle={\normalsize}}
+
+\section{No requirement at all}
+
+In the organisation of our course, the students see this module at the
+same time they learn fundamentals about algorithms and data
+structures, in particular trees, lists and queues. For the students it
+then seems natural to use this hammer to approach the elevator
+problem, as in: put the requests in a queue and then deal with them by
+searching and sorting for the right request to service next. 
+
+The secret tip is: AVOID QUEUES of any kind in your design.  
+
+What I\footnote{Author} learned in particular is that students tend to
+build complex systems and than counteract design flaws with other
+smart solutions.
+
+

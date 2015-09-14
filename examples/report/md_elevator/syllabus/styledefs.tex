@@ -1,0 +1,224 @@
+% This is an annotated latex definition file.
+% You can give it any name as long as its inputted somewhere
+% in your code.
+% You may even put it in a directory other then the current
+% as long as that directory is in the TEXINPUTS path.
+% Comments start with a % as you a seeing right now. Otherwise look
+% to the left.
+% font of the times family
+\usepackage{nextpage}
+\usepackage{times}
+% make linenumbering possible for reviewing
+\usepackage[pagewise,mathlines,displaymath]{lineno}
+\usepackage[utf8]{inputenc}
+% use the pdftex graphics extensions
+\usepackage[pdftex]{graphicx}
+%\DeclareGraphicsRule{*}{mps}{*}{}
+\usepackage{picins}
+\usepackage{ragged2e}
+\input{pagesize}
+
+% to make the headers and footers look nice
+\usepackage{color,fancyhdr}
+% for version control info, e.g. in the header or footer
+\usepackage{svn}
+% make the header (and footer) span the whole printable area
+\addtolength\headwidth\marginparwidth
+\addtolength\headwidth\marginparsep
+\pagestyle{fancy}
+% to get version information in files, include the following lines in each document 
+\newcommand\PartAuthor{Pieter van den Hombergh}
+\newcommand\PartReviewer{Pieter van den Hombergh}
+\SVN $Author: hom $
+\SVN $Revision: 28 $
+\SVN $Id: styledefs.tex 28 2014-09-24 09:04:24Z hom $
+\SVN $Date: 2014-09-24 11:04:24 +0200 (Wed, 24 Sep 2014) $
+\newcommand\TheFile{styledefs.tex}
+%\renewcommand\footrulewidth{1pt}
+% put revision control info in the footer
+% this info comes from RCS but more likely from CVS
+% the vspace compensates for the space taken up by the logo on the right hand.
+% I like a fontys color in my header
+\definecolor{fontys}{rgb}{0.2,0,0.2} % a darkish purple
+\definecolor{purple}{rgb}{0.6,0,0.4} % a redish purple
+\definecolor{navy}{rgb}{0.0,0,0.4} % a darkish blue
+\renewcommand\headrule{%
+  {\color{navy}%
+    \hrule height 2pt width \headwidth
+    \vspace{1pt}%
+    \hrule height 1pt width \headwidth
+    \vspace{-4pt}%
+  }%
+}%
+\renewcommand\footrule{
+  {\color{fontys}%
+    \hrule height 1pt width \headwidth
+    \vspace{1pt}%
+    \hrule height 2pt width \headwidth
+    \vspace{2pt}%
+  }%
+}
+% do not indent pars, increase parskip
+\setlength\parindent{0pt}
+\setlength\parskip{0.5em}
+% my own itemize: a bit less spacy then the default
+\newenvironment{Itemize} {
+  \begin{itemize}{}%
+    \setlength\topsep{0ex}%
+    \setlength\parskip{0ex}%
+    \setlength\partopsep{0em}%
+    \setlength\parsep{0em}%
+    \setlength\itemsep{0em}%
+    }%
+  {\end{itemize}}
+% make the head a bit heigher
+\setlength\headheight{16pt}
+\setlength\footskip{60pt}
+% This macro '\define' puts the argument in em 
+% and in boldface in the margin.
+\newcommand{\Define}[1]{% 1 argument
+  \mbox{}{\textit{#1}}% italics or em
+  \marginpar{\raggedright% no adjust
+    \bfseries\hspace{0pt}#1}% bold
+} % end of macro
+\newcommand\Okis[1]{{\color{fontys}\textbf{#1}}}
+\newcommand\Code[1]{{\color{fontys}\texttt{#1}}}
+\newcommand\Linux{{\color{fontys}\sc\bf Linux\ }}
+% At start of pages, define sometimes puts the material in the wrong margin
+% in that case use this fix.
+\newcommand{\fixdefine}[1]{\mbox{}{\textit{#1}}%
+  \reversemarginpar\marginpar{\bfseries\hspace{0pt}#1}\normalmarginpar}
+% to display source code like things
+\usepackage{listings}
+\lstset{numbers=left} % to get out of the way with document line numbers
+% to be able to 'on this page' and the like
+\usepackage{varioref}
+% to put a nice quote with the chapter
+\usepackage[avantgarde]{quotchap}
+\renewcommand\chapterheadstartvskip{\vspace*{-5\baselineskip}}
+%select Helvetica for title and quote
+\usepackage{helvet}
+%\renewcommand\sectfont{\sffamily\bfseries}
+%% example
+%\begin{savequote}[10cm]
+% \sffamily
+%some text
+%\end{savequote}
+% needed for inclusion of gnumeric table
+\def\inputGnumericTable{}
+%% 
+\usepackage{array}    
+\usepackage{longtable}
+\usepackage{calc}     
+\usepackage{multirow} 
+\usepackage{hhline}   
+\usepackage{ifthen}   
+%\usepackage[round]{jurabib}
+\usepackage[square,sort,comma,numbers]{natbib}
+\bibliographystyle{plainnat}
+% the criteria a formatted as theorems
+\usepackage{theorem}
+%\usepackage{ragged2e,amsthm}
+%\newtheoremstyle{ciss}%
+%{5pt}{5pt}% space above below
+%{\normalfont\RaggedRight}% style
+%{-12pt}% indent
+%{\sffamily\bfseries}{:}% heading font and punctuation
+%{}% space after heading
+%{}% head spec plain
+\theoremstyle{margin}
+{\theorembodyfont{\rmfamily}\newtheorem{Crit}{}[chapter]}
+% Fancy headers are used
+% To make the footer appear on chapter pages too,
+% we redefine the fancypagestyle plain
+\fancypagestyle{plain}{%
+  \fancyhf{} % clear all  
+  \fancyfoot[RO,LE]{\vspace{-1.2cm}%
+  File: \TheFile\\%
+  Author:\PartAuthor\\%
+  Reviewer:\PartReviewer\\%
+  Revision: \SVNRevision, \SVNDate\\
+}
+  \fancyfoot[RE,LO]{\includegraphics[width=2cm]{figures/fon000_00c.pdf}}
+  \fancyfoot[C]{\bfseries\thepage}
+  \renewcommand\headrule{}%
+}% end of redef fancypagestyl plain
+% Define my own fancy headers and footers  
+\fancyhead{}
+\fancyhead[RO]{\rightmark} % display section name
+\fancyhead[LE]{\rightmark}
+\fancyfoot[RO,LE]{\vspace{-1.2cm}%
+  File: \TheFile\\%
+  Author:\PartAuthor\\%
+  Reviewer:\PartReviewer\\%
+  Revision: \SVNRevision, \SVNDate\\
+}
+% logo in footer
+\fancyfoot[RE,LO]{\includegraphics[width=2cm]{figures/fon000_00c.pdf}}
+\pagestyle{fancy}
+\usepackage{fancybox}
+%\fancypage{}{\fbox}
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% For a watermark on each page:
+\usepackage{eso-pic} % needed package
+% Draw a DRAFT through the text.
+% for other text renewcommand the next command
+\newcommand\watermarktext{Draft}
+% You could make this depend on the status of the files.
+\makeatletter
+  \AddToShipoutPicture{%
+    \setlength{\@tempdimb}{.5\paperwidth}%
+    \setlength{\@tempdimc}{.5\paperheight}%
+    \setlength{\unitlength}{1pt}%
+    \put(\strip@pt\@tempdimb,\strip@pt\@tempdimc){%
+      \makebox(0,0){\rotatebox{45}{% for longer texts you might want to increase this angle
+          \textcolor[gray]{0.85}{% the higher the number, the lighter the text
+            \fontsize{8cm}{8cm}% Fit this font to the text
+            \selectfont{\watermarktext}}}}
+    }
+}
+\makeatother
+%
+% hyperef last
+% this allows you to add hyperlinks in the document.
+% It makes viewing it with e.g. Adobe acrobat very nice.
+\usepackage{colortbl}
+\usepackage{array}
+\newcolumntype{I}{!{\vrule width 1pt}}
+\newlength\savedwidth
+\newcommand\whline{\noalign{\global\savedwidth\arrayrulewidth
+    \global\arrayrulewidth 1pt}%
+  \hline \noalign{\global\arrayrulewidth\savedwidth}}
+
+\usepackage[pdftex,colorlinks=false,
+                      pdfstartview=FitV,
+                      linkcolor=blue,
+                      citecolor=blue,
+                      urlcolor=blue,
+          ]{hyperref}
+          \pdfinfo{
+            /Title      (Sample latex document)
+            /Author     (Pieter van den Hombergh 879417)
+            /Keywords   (Elevator project Java latex documentation graphics math listings)
+          }
+
+\newenvironment{Enumerate}{
+\begin{enumerate}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}}{\end{enumerate}
+}
+
+\newenvironment{Description}{
+\begin{description}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}}{\end{description}
+}
+
+%% comments are inserted by emacs, that uses it to process
+%% this latex file
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

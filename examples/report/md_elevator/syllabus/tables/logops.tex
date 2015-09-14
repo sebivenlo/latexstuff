@@ -1,0 +1,21 @@
+{    \renewcommand\arraystretch{1.7}
+  \begin{tabular}{IccI>{\columncolor[gray]{.8}}cc>{\columncolor[gray]{.8}}cc>{\columncolor[gray]{.8}}cc>{\columncolor[gray]{.8}}cI}\whline
+    \multicolumn{9}{IcI}{Logical operations (in bit wise programming notation)}\\\whline
+    \multicolumn{2}{IcI}{semantics}
+    & inverse & all (both) & at least one& unequal & equal & not all & none\\\whline
+    \multicolumn{2}{IcI}{math sym}
+      & $\neg a$ & $a\land b$         & $a\lor b$ & $a\oplus b$
+      & $a=b$    & $\neg(a \land b)$ & $\neg(a \lor b)$ \\\whline
+      \multicolumn{2}{IcI}{techn. not.}
+      & $\overline{a}$ & $a\cdot b$ & $a+b$ & $a\oplus b$
+      &$a=b$ & $\overline{a\cdot b}$ & $\overline{a+b}$\\\whline
+      \multicolumn{2}{IcI}{C style. not.}
+      & $\tilde{\ }a$ & $a \& b$ & $a|b$ & $a\hat{\ } b$
+      &$a=\,=b$ & $\tilde{ }(a \& b)$ & $\tilde{ }(a|b)$\\\whline
+    $a$ & $b$ & not(a) & and & or & xor & equals & nand & nor \\\whline 
+    0 & 0 & 1      &  0  &  0 &  0  &  1     & 1    & 1   \\
+    0 & 1 & 1      &  0  &  1 &  1  &  0     & 1    & 0   \\
+    1 & 0 & 0      &  0  &  1 &  1  &  0     & 1    & 0   \\
+    1 & 1 & 0      &  1  &  1 &  0  &  1     & 0    & 0   \\\whline
+  \end{tabular}
+}

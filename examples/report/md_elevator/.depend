@@ -1,0 +1,17 @@
+main.pdf :     styledefs.tex \
+	     pagesize.tex \
+	   frontpage.tex \
+	     figures/fontys-page2.pdf \
+	   history.tex \
+	   intro.tex \
+	   requirements.tex \
+	   hardware.tex \
+	     figures/doorsim.pdf \
+	     tables/logops.tex \
+	   gui.tex \
+	   weekplan.tex \
+	   colofon.tex \
+	   backside.tex \
+	     figures/fontys-page.pdf \
+	     figures/barcode.pdf 
+

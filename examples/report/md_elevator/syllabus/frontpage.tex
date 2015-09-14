@@ -1,0 +1,54 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   This is frontpage.tex file needed for the dmathesis.cls file.  You   %
+%  have to  put this file in the same directory with your thesis files.  %
+%                Written by M. Imran 2001/06/18                          % 
+%                 No Copyright for this file                             % 
+%                 Save your time and enjoy it                            % 
+%                                                                        % 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%           The title page           %%%%%%%%%%%%%%%%%%%%%%%  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{roman}
+
+\newpage
+{
+\setlength{\unitlength}{1mm}
+\begin{picture}(0,0)(25,270)
+\put(0,4){\fbox{\includegraphics[width=216mm]{figures/fontys-page2}}}
+\put(100,285){\color{fontys}\sf\Large{Fontys Venlo Software Engineering series}}
+\put(15,15){\begin{minipage}[b]{\textwidth}
+    \parindent=0in\raggedright
+    {\large \sffamily%\color{gray}
+      Fontys Hogeschool voor Techniek en Logistiek\\
+      Hogere Informatica/ Software Engineering\\
+      Hulsterweg 2-6 Venlo\\
+      The Netherlands\\
+    }
+  \end{minipage}}
+\end{picture}
+}
+\thispagestyle{empty}
+\begin{center}
+  \vspace*{2cm}
+\begin{minipage}[b]{\textwidth}
+\parindent=0in\raggedleft
+{\Huge \bf \sf \makeatletter\@title\makeatother}
+
+\noindent{\Large\sffamily Reactive systems and patterns applied}
+\vspace*{5mm}
+
+\noindent{\large\makeatletter\@author\makeatletter}
+
+\vspace*{5mm}
+\includegraphics[height=160mm]{figures/elevator_zep.jpg}
+\end{minipage}
+\end{center}
+%empty backside of frontpage
+\pagestyle{empty}
+\cleardoublepage
+\setcounter{page}{1}
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End: 
