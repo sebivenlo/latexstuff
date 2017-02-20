@@ -1,0 +1,33 @@
+% This document is a minimal example for a thesis title and information page
+% assumes that sebivenlo directory is in texmf tree
+\include{sebidefault}
+\usepackage{sebithesistitle}
+
+\title{Thesis Title Goes Here}
+\subtitle{Bachelor Thesis}
+\author{Donald Duck}
+\date{Place, \today}
+
+% provide data for information page
+\def\documentname{Project	Plan for Bachelor Thesis Project}
+\def\studentname{Donald Duck}
+\def\snumber{1234567}
+\def\course{Informatics - Software Engineering}
+\def\period{February 2017 - July 2017}
+\def\companyname{company abc}
+\def\companyaddress{Some Address}
+\def\companypostcodecity{12345, Somewhere}
+\def\companycountry{Germany}
+\def\companycoach{John Doe}
+\def\companycoachmail{john.doe@company.com}
+\def\universitytutor{Lecturer A}
+\def\universitytutormail{lecturer.a@fontys.nl}
+\def\examinator{Professional A}
+\def\externalexpert{Professional B}
+\def\hasnda{no}
+
+\begin{document}
+\maketitle
+
+\input{informationpage}
+\end{document}
