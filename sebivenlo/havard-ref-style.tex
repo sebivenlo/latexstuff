@@ -1,0 +1,52 @@
+\usepackage[
+backend=biber,
+style=authoryear,
+natbib=true,
+urldate=long,
+dashed=false,
+maxcitenames=3,
+maxbibnames=10,
+giveninits=true,
+]{biblatex}
+
+\DefineBibliographyStrings{english}{%
+  bibliography = {References},
+  urlseen = {Accessed},
+  urlfrom = {Available at:}
+}
+\DeclareFieldFormat{urldate}{\mkbibbrackets{\bibstring{urlseen}\space#1}}
+\DeclareFieldFormat{url}{\mkbibbrackets{online}\space\bibstring{urlfrom}\space\url{#1}}
+
+% suppress qoutation marks from title
+\DeclareFieldFormat[article,inproceedings]{citetitle}{#1}
+\DeclareFieldFormat[article,inproceedings]{title}{#1}
+\DeclareFieldFormat[article]{number}{\mkbibparens{#1}}
+
+%% show name of second authors in references in form of lastname, initials
+\DeclareNameAlias{sortname}{last-first}
+
+% change journal format to volume(number) e.g. 1(4).
+\renewbibmacro*{volume+number+eid}{%
+  \printfield{volume}%
+  \printfield{number}%
+  \setunit{\addcomma\space}%
+  \printfield{eid}}
+
+% add comma after journaltitle
+\renewbibmacro*{journal+issuetitle}{%
+  \usebibmacro{journal}%
+  \setunit*{\addcomma\space}%
+  \iffieldundef{series}
+    {}
+    {\newunit
+     \printfield{series}%
+     \setunit{\addspace}}%
+  \usebibmacro{volume+number+eid}%
+  \setunit{\addspace}%
+  \usebibmacro{issue+date}%
+  \setunit{\addcolon\space}%
+  \usebibmacro{issue}%
+  \newunit}
+
+% suppress "In" before journal name
+\renewbibmacro{in:}{}

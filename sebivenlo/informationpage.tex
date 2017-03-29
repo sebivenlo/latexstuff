@@ -1,13 +1,3 @@
-\def\indent{0.25\textwidth}
-
-\newenvironment{infoblock}{
-\begin{table}[h!]
-\begin{tabular}{@{}p{\indent}l}
-}{
-\end{tabular}
-\end{table}
-}
-
 \section*{Information Page}
 
 Fontys Hogeschool Techniek en Logistiek\\
@@ -40,10 +30,19 @@ University coach: & \universitytutor\\
 Email: & \texttt{\href{mailto:\universitytutormail}{\universitytutormail}}\\
 \end{infoblock}
 
-\begin{infoblock}
-Examinator: & \examinator\\
-External domain expert: & \externalexpert\\
-\end{infoblock}
+\ifx\examinator\empty
+  \relax
+\else
+	\ifx\externalexpert\empty
+		\relax
+	\else
+	  \begin{infoblock}
+  	  Examinator: & \examinator\\
+     External domain expert: & \externalexpert\\
+     \end{infoblock}
+	\fi
+\fi
+
 
 \begin{infoblock}
 Non-disclosure agreement: & \hasnda
