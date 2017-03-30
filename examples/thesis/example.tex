@@ -1,6 +1,7 @@
 % This document is a minimal example for a thesis title and information page
 % assumes that sebivenlo directory is in texmf tree
 \include{sebidefault}
+\include{harvardrefstyle}
 \usepackage{sebithesistitle}
 
 \title{Thesis Title Goes Here}
@@ -27,10 +28,34 @@
 \def\externalexpert{Professional B}
 \def\hasnda{no}
 
+\addbibresource{references.bib}
+
 \begin{document}
 \maketitle
 
 \input{informationpage}
 \newpage
 \input{statementofauthenticity}
+\newpage
+\chapter{Examples}
+\section{Book}
+\noindent
+\verb=\citet{key}= results in \citet{goetz2006java}. \newline
+\verb=\citep{key}= results in \citep{goetz2006java}. \newline
+\verb=\cite{key}= results in \cite{goetz2006java}. \newline
+\verb=\citep[p.123]{key}= results in \citep[p.123]{goetz2006java}.
+
+\section{Article}
+\noindent
+\verb=\citet{key}= results in \citet{cattell2011scalable}. \newline
+\verb=\citep{key}= results in \citep{cattell2011scalable}. \newline
+\verb=\cite{key}= results in \cite{cattell2011scalable}. \newline
+\verb=\citep[p.123]{key}= results in \citep[p.123]{cattell2011scalable}.
+
+\section{Website}
+\verb=\citet{key}= results in \citet{hom2017front}. \newline
+\verb=\citep{key}= results in \citep{hom2017front}. \newline
+\verb=\cite{key}= results in \cite{hom2017front}. \newline
+
+\printbibliography
 \end{document}
