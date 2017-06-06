@@ -10,3 +10,17 @@
 \end{tabular}
 \end{table}
 }
+
+% Simple command for a fancy that attracts attention.
+% usage:
+% \LongQuote{the text you are quoting}{the name of the author}
+% Any name can be passed (e.g. \citet{author2000text})
+\newcommand{\LongQuote}[2]{
+\begin{flushright}
+	\begin{minipage}{.9\linewidth}
+	\textit{#1}
+	\end{minipage}
+
+	\textit{#2}
+\end{flushright}
+}
