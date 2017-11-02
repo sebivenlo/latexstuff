@@ -26,8 +26,13 @@ The conventions we use are:
 ----
 \input{frontmatter}
 \input{summary}
-\numbering{arabic}
+\pagenumbering{arabic}
 \input{introduction}
-\input{chap1}
-\input{chap1}
+\include{chap1}
+\include{chap1}
 ----
+
+* Use `\include` only for chapters, because the way they are treated by LaTeX. For on, `\include` cannot be nested, second, an `\include` typically forces a page break.
+* Use `input` or `\InputIfFile` for everything else and
+* Use `\includegraphics[...]{...}` to include figures or tables made up in pdf. Note that only the following file formats are accepted by pdflatex: .png, .pdf and .jpg.
+Any svg file needs to be converted to pdf first.
