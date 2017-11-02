@@ -1,0 +1,11 @@
+== Latex Tips
+
+Outline
+
+include::doc/conventions.adoc[]
+
+* (La)TeX Conventions en environment settings
+** search path.
+* Document and directory structure
+** file names and purpose.
+* Macros designed for re-use.

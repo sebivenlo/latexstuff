@@ -1,0 +1,33 @@
+== Conventions in this repository
+
+As a good software engineer, you avoid work where you can. Certainly if it is repetitious. You computer does a much better job at that.
+You can even minimize configuration labor when you
+sticking some to conventions a use it as in 'convention over configuration'.
+
+The conventions we use are:
+
+* The output format is always pdf.
+* For every separate target document (pdf-file) there is a separate project, which is contained in a directory of its own.
+* The document that is given as tex-source command line parameter is called `main.tex`.
+* This main.tex file defines the document type, and has a fixed content, which only varies by document-type, like *sebireport* for a report, *sebiarticle* for *arcticles* as *sebisheets* for sheets.
+* The actual content is organised in a file called material, which `\input`s or `\include`s the files that make up the final content.
+
+.main.tex file content
+[source,tex-source]
+----
+\input{sebireport}
+\begin{document}
+\input{material}
+\end{document}
+----
+
+.material.tex file content (typical)
+[source,tex-source]
+----
+\input{frontmatter}
+\input{summary}
+\numbering{arabic}
+\input{introduction}
+\input{chap1}
+\input{chap1}
+----
